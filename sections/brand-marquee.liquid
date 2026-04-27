@@ -1,0 +1,168 @@
+{%- style -%}
+  .brand-marquee-section {
+    padding: 40px 0;
+    background: {{ section.settings.bg_color }};
+    overflow: hidden;
+    border-top: 1px solid #f0f0f0;
+    border-bottom: 1px solid #f0f0f0;
+  }
+
+  .brand-marquee-title {
+    text-align: center;
+    margin-bottom: 30px;
+    font-size: 24px;
+    font-weight: 700;
+    color: #333;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+
+  .marquee-container {
+    display: flex;
+    width: 100%;
+    overflow: hidden;
+    position: relative;
+    padding: 10px 0;
+  }
+
+  .marquee-content {
+    display: flex;
+    animation: marquee {{ section.settings.speed }}s linear infinite;
+    gap: 60px;
+    align-items: center;
+  }
+
+  .marquee-item {
+    flex-shrink: 0;
+    width: 150px;
+    height: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+  }
+
+  .marquee-item img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+    filter: grayscale(100%);
+    opacity: 0.6;
+    transition: all 0.3s ease;
+  }
+
+  .marquee-item:hover img {
+    filter: grayscale(0%);
+    opacity: 1;
+    transform: scale(1.1);
+  }
+
+  @keyframes marquee {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+  }
+
+  @media screen and (max-width: 749px) {
+    .marquee-item { width: 100px; height: 60px; }
+    .marquee-content { gap: 30px; }
+    .brand-marquee-title { font-size: 18px; }
+  }
+{%- endstyle -%}
+
+<div class="brand-marquee-section">
+  {% if section.settings.title != blank %}
+    <h2 class="brand-marquee-title">{{ section.settings.title }}</h2>
+  {% endif %}
+  
+  <div class="marquee-container">
+    <div class="marquee-content">
+        {%- for i in (1..10) -%}
+          <div class="marquee-item">
+            {%- liquid
+              case i
+                when 1
+                  assign default_img = 'brand-acutas.png'
+                when 2
+                  assign default_img = 'brand-autofrill.png'
+                when 3
+                  assign default_img = 'brand-awejoy.jpg'
+                when 4
+                  assign default_img = 'brand-balixo.png'
+                when 5
+                  assign default_img = 'brand-daluci.png'
+                when 6
+                  assign default_img = 'brand-etuzi.png'
+                when 7
+                  assign default_img = 'brand-keycase.png'
+                when 8
+                  assign default_img = 'brand-masti.png'
+                when 9
+                  assign default_img = 'brand-suake.jpg'
+                when 10
+                  assign default_img = 'brand-techvor.png'
+              endcase
+            -%}
+            <img src="{{ default_img | asset_url }}" 
+                 alt="Brand Logo" 
+                 loading="lazy" 
+                 width="150" 
+                 height="80">
+          </div>
+        {%- endfor -%}
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Brand Marquee",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Heading",
+      "default": "Most Loved Brands"
+    },
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Background Color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "range",
+      "id": "speed",
+      "label": "Marquee Speed (seconds)",
+      "min": 10,
+      "max": 60,
+      "step": 1,
+      "default": 30
+    }
+  ],
+  "blocks": [
+    {
+      "type": "brand",
+      "name": "Brand Logo",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Logo Image"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Brand Marquee",
+      "blocks": [
+        { "type": "brand" },
+        { "type": "brand" },
+        { "type": "brand" },
+        { "type": "brand" },
+        { "type": "brand" }
+      ]
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,50 @@
+{%- style -%}
+  .free-shipping-section {
+    padding: 0 !important;
+    max-width: var(--page-width);
+    margin: 60px auto !important;
+    padding-left: 20px !important;
+    padding-right: 20px !important;
+  }
+
+  .free-shipping-banner {
+    display: block;
+    width: 100%;
+    border-radius: 4px;
+    overflow: hidden;
+  }
+
+  .free-shipping-banner img {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+{%- endstyle -%}
+
+<div class="free-shipping-section">
+  <div class="free-shipping-banner">
+    {%- if section.settings.image != blank -%}
+      <img src="{{ section.settings.image | image_url: width: 1600 }}" alt="{{ section.settings.image.alt }}" loading="lazy">
+    {%- else -%}
+      <img src="{{ 'free-shipping-promo.jpg' | asset_url }}" alt="Free Shipping Banner" loading="lazy">
+    {%- endif -%}
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Free Shipping Banner",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Banner Image"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Free Shipping Banner"
+    }
+  ]
+}
+{% endschema %}

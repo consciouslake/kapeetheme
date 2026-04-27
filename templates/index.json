@@ -1,0 +1,156 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "hero": {
+      "type": "home-hero",
+      "settings": {
+        "speed": 5
+      }
+    },
+    "trust_bar": {
+      "type": "trust-bar",
+      "blocks": {
+        "item_1": {
+          "type": "trust_item",
+          "settings": {
+            "icon": "icon-truck.svg",
+            "title": "Free Shipping",
+            "subtitle": "On orders above ₹999"
+          }
+        },
+        "item_2": {
+          "type": "trust_item",
+          "settings": {
+            "icon": "icon-check-mark.svg",
+            "title": "Quality Assured",
+            "subtitle": "Premium quality products"
+          }
+        },
+        "item_3": {
+          "type": "trust_item",
+          "settings": {
+            "icon": "icon-check-mark.svg",
+            "title": "Secure Payment",
+            "subtitle": "100% secure checkout"
+          }
+        },
+        "item_4": {
+          "type": "trust_item",
+          "settings": {
+            "icon": "icon-chat-bubble.svg",
+            "title": "24/7 Support",
+            "subtitle": "Dedicated customer care"
+          }
+        }
+      },
+      "block_order": [
+        "item_1",
+        "item_2",
+        "item_3",
+        "item_4"
+      ],
+      "settings": {}
+    },
+    "brand_marquee": {
+      "type": "brand-marquee",
+      "settings": {
+        "title": "Most Loved Brands",
+        "speed": 30
+      }
+    },
+    "best_selling": {
+      "type": "best-selling-products",
+      "settings": {
+        "title": "Best Selling Products",
+        "collection": "best-sellers"
+      }
+    },
+    "baby_feature": {
+      "type": "category-feature-block",
+      "settings": {
+        "title": "Everyday Baby Needs",
+        "collection": "baby-care",
+        "banner_position": "banner-left",
+        "show_badge": false
+      }
+    },
+    "car_feature": {
+      "type": "category-feature-block",
+      "settings": {
+        "title": "Microfiber Car Cleaning",
+        "collection": "automotive",
+        "banner_position": "banner-right",
+        "show_badge": false
+      }
+    },
+    "washing_feature": {
+      "type": "category-feature-block",
+      "settings": {
+        "title": "Washing Machine Essentials",
+        "collection": "washing-machine-accessories",
+        "banner_position": "banner-left",
+        "show_badge": true,
+        "promo_badge_text": "Protects Your Washing Machine"
+      }
+    },
+    "welcome_text": {
+      "type": "welcome-text",
+      "settings": {
+        "title": "Welcome to Acutastore.in",
+        "bg_color": "#ffffff"
+      }
+    },
+    "free_shipping": {
+      "type": "free-shipping-banner",
+      "settings": {}
+    },
+    "promo_grid": {
+      "type": "promo-grid-4-col",
+      "blocks": {
+        "b1": {
+          "type": "image",
+          "settings": {}
+        },
+        "b2": {
+          "type": "image",
+          "settings": {}
+        },
+        "b3": {
+          "type": "image",
+          "settings": {}
+        },
+        "b4": {
+          "type": "image",
+          "settings": {}
+        }
+      },
+      "block_order": [
+        "b1",
+        "b2",
+        "b3",
+        "b4"
+      ],
+      "settings": {}
+    }
+  },
+  "order": [
+    "hero",
+    "trust_bar",
+    "brand_marquee",
+    "best_selling",
+    "baby_feature",
+    "car_feature",
+    "washing_feature",
+    "free_shipping",
+    "promo_grid",
+    "welcome_text"
+  ]
+}

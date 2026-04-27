@@ -1,0 +1,36 @@
+<div class="product-sticky-bar" id="ProductStickyBar-{{ section.id }}">
+  <div class="page-width">
+    <div class="sticky-bar-content">
+      <div class="sticky-product-info small-hide">
+        <img src="{{ product.featured_media | image_url: width: 100 }}" alt="{{ product.title }}" loading="lazy">
+        <div class="sticky-title-price">
+          <h4>{{ product.title | truncate: 50 }}</h4>
+          <span class="price">{{ product.selected_or_first_available_variant.price | money }}</span>
+        </div>
+      </div>
+      <div class="sticky-actions">
+        <div class="sticky-qty small-hide">
+           {% comment %} Reuse quantity input style here if needed {% endcomment %}
+        </div>
+        <button type="submit" class="button button--primary" onclick="document.querySelector('#product-form-{{ section.id }} [name=add]').click();">
+          Add to Cart
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  window.addEventListener('scroll', function() {
+    const stickyBar = document.getElementById('ProductStickyBar-{{ section.id }}');
+    const trigger = document.querySelector('.product__title') || document.querySelector('.product__info-container');
+    if (stickyBar && trigger) {
+      const triggerBottom = trigger.getBoundingClientRect().bottom;
+      if (triggerBottom < 0) {
+        stickyBar.classList.add('active');
+      } else {
+        stickyBar.classList.remove('active');
+      }
+    }
+  });
+</script>

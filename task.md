@@ -1,0 +1,27 @@
+# Tasks: 1:1 Storefront Replication
+
+- [x] **Header & Navigation**
+    - [x] Set `logo-1.png` as default branding
+    - [x] Adjust logo scaling and spacing in `acutastore.css`
+    - [x] Match "Browse Category" ribbon height and font exactly
+    - [ ] Add Blue Top Bar ("WELCOME TO OUR STORE!")
+    - [ ] Match EXACT category list (Electronics, etc.)
+    - [/] **Layout Polish**
+        - [ ] Add Blue Search Button 1:1
+        - [ ] Fix Redundant "Welcome" text in Top Bar
+        - [ ] Align Account/Cart icons horizontally
+        - [ ] Force Menu into a single row
+- [ ] **Hero Section (Slideshow)**
+    - [ ] Configure `slideshow.liquid` with 6 original banners
+    - [ ] Set transition timings and mobile responsiveness
+- [ ] **Brand Grid**
+    - [ ] Create `brand-grid.liquid` section for "Most Loved Brands"
+    - [ ] Style logo scrolling/carousel effect
+- [ ] **Homepage Sidebars & Collections**
+    - [ ] Implement Sidebar layout using original assets
+    - [ ] Link collections to sidebar promo images
+- [ ] **Footer Completion**
+    - [ ] Add "Why Choose Us" trust banner
+    - [ ] Add original payment icon assets
+- [/] **Final Sync**
+    - [ ] Push all changes to the "Kapee Replicated" theme using CLI

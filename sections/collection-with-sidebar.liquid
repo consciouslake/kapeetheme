@@ -1,0 +1,179 @@
+{%- style -%}
+  .collection-sidebar-wrapper {
+    display: flex;
+    gap: 30px;
+    padding-top: {{ section.settings.padding_top }}px;
+    padding-bottom: {{ section.settings.padding_bottom }}px;
+    flex-direction: {% if section.settings.sidebar_position == 'left' %}row{% else %}row-reverse{% endif %};
+  }
+
+  .home-sidebar {
+    flex: 0 0 300px;
+    position: sticky;
+    top: 20px;
+  }
+
+  .home-sidebar img {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+  }
+
+  .home-main-content {
+    flex-grow: 1;
+  }
+
+  .collection-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+  }
+
+  @media screen and (max-width: 989px) {
+    .collection-sidebar-wrapper {
+      flex-direction: column !important;
+      gap: 20px !important;
+    }
+    .home-sidebar {
+      flex: none !important;
+      width: 100% !important;
+      position: static !important; /* Remove sticky on mobile */
+      margin-bottom: 20px !important;
+    }
+    .collection-grid {
+      grid-template-columns: repeat(2, 1fr) !important;
+      gap: 15px !important;
+    }
+  }
+{%- endstyle -%}
+
+<div class="collection-sidebar-wrapper page-width">
+  <div class="home-sidebar">
+    {%- if section.settings.sidebar_image != blank -%}
+      <a href="{{ section.settings.sidebar_link | default: '#' }}">
+        {{ section.settings.sidebar_image | image_url: width: 600 | image_tag: loading: 'lazy' }}
+      </a>
+    {%- else -%}
+      {%- assign sidebar_asset = '' -%}
+      {%- assign section_title = section.settings.title | downcase -%}
+      {%- if section_title contains 'baby' -%}
+        {%- assign sidebar_asset = 'category-sidebar-baby.png' -%}
+      {%- elsif section_title contains 'car' or section_title contains 'auto' -%}
+        {%- assign sidebar_asset = 'category-sidebar-car.jpg' -%}
+      {%- else -%}
+        {%- assign sidebar_asset = 'category-sidebar-washing.png' -%}
+      {%- endif -%}
+
+      {%- if sidebar_asset != '' -%}
+         <a href="{{ section.settings.sidebar_link | default: '#' }}">
+           <img src="{{ sidebar_asset | asset_url }}" alt="Promo Sidebar" loading="lazy">
+         </a>
+      {%- else -%}
+        <div class="placeholder-svg" style="background: #eee; height: 400px; display: flex; align-items: center; justify-content: center;">
+           <span>Promo Sidebar Image</span>
+        </div>
+      {%- endif -%}
+    {%- endif -%}
+  </div>
+
+  <div class="home-main-content">
+    <div class="section-heading" style="margin-bottom: 25px; display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #eee; padding-bottom: 10px;">
+      <h2 class="h2" style="font-size: 20px; font-weight: 700; color: #333; margin: 0; text-transform: uppercase;">{{ section.settings.title }}</h2>
+      <a href="{{ section.settings.collection.url }}" class="view-all-button" style="background-color: #01568D; color: white; padding: 10px 14px; text-decoration: none; font-size: 12px; font-weight: 600; border-radius: 0; text-transform: uppercase;">View All</a>
+    </div>
+    
+    <div class="collection-grid">
+      {%- assign collection = section.settings.collection -%}
+      {%- if collection == blank or collection.products_count == 0 -%}
+        {%- assign collection = collections['all'] -%}
+      {%- endif -%}
+
+      {%- if collection != blank and collection.products_count > 0 -%}
+        {%- for product in collection.products limit: 6 -%}
+          <div class="product-card">
+            {% render 'card-product',
+              card_product: product,
+              media_aspect_ratio: 'square',
+              show_secondary_image: true,
+              show_vendor: false,
+              show_rating: true
+            %}
+          </div>
+        {%- endfor -%}
+      {%- else -%}
+        {%- for i in (1..6) -%}
+          <div class="product-card">
+            {{ 'product-' | append: i | placeholder_svg_tag: 'placeholder-svg' }}
+          </div>
+        {%- endfor -%}
+      {%- endif -%}
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Collection with Sidebar",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Heading",
+      "default": "New Arrivals"
+    },
+    {
+      "type": "image_picker",
+      "id": "sidebar_image",
+      "label": "Sidebar Image"
+    },
+    {
+      "type": "url",
+      "id": "sidebar_link",
+      "label": "Sidebar Link"
+    },
+    {
+      "type": "select",
+      "id": "sidebar_position",
+      "label": "Sidebar Position",
+      "options": [
+        { "value": "left", "label": "Left" },
+        { "value": "right", "label": "Right" }
+      ],
+      "default": "left"
+    },
+    {
+      "type": "collection",
+      "id": "collection",
+      "label": "Collection"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding Top",
+      "default": 36
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding Bottom",
+      "default": 36
+    }
+  ],
+  "presets": [
+    {
+      "name": "Collection with Sidebar"
+    }
+  ]
+}
+{% endschema %}

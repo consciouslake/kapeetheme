@@ -1,0 +1,155 @@
+{%- style -%}
+  .acutastore-brand-section {
+    padding-top: {{ section.settings.padding_top }}px;
+    padding-bottom: {{ section.settings.padding_bottom }}px;
+    background: #f8f8f8 !important;
+    border-top: 1px solid #eee;
+    border-bottom: 1px solid #eee;
+    overflow: hidden !important;
+  }
+
+  .acutastore-brand-title {
+    text-align: center;
+    margin-bottom: 30px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: #333;
+    font-size: 2rem;
+  }
+
+  .acutastore-brand-container {
+    overflow: hidden;
+    width: 100vw;
+    position: relative;
+    left: 50%;
+    right: 50%;
+    margin-left: -50vw;
+    margin-right: -50vw;
+    padding: 20px 0;
+  }
+
+  .acutastore-brand-slider {
+    display: flex !important;
+    flex-wrap: nowrap !important;
+    justify-content: flex-start !important;
+    align-items: center !important;
+    gap: 30px !important;
+    width: max-content !important;
+    animation: acutastoreMarquee 30s linear infinite !important;
+  }
+
+  .acutastore-brand-slider:hover {
+    animation-play-state: paused !important;
+  }
+
+  @keyframes acutastoreMarquee {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+  }
+
+  .acutastore-brand-item {
+    flex: 0 0 auto !important;
+    width: 140px !important;
+    height: 70px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    transition: all 0.4s ease !important;
+    background: white !important;
+    border: 1px solid #efefef !important;
+    border-radius: 4px !important;
+    padding: 10px !important;
+    filter: grayscale(100%) opacity(0.7) !important;
+    cursor: pointer !important;
+  }
+
+  .acutastore-brand-item:hover, .acutastore-brand-item:active {
+    transform: translateY(-5px) !important;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1) !important;
+    filter: grayscale(0%) opacity(1) !important;
+    border-color: #01568D !important;
+  }
+
+  .acutastore-brand-item img {
+    max-width: 100% !important;
+    max-height: 100% !important;
+    object-fit: contain !important;
+  }
+
+  @media screen and (min-width: 990px) {
+    .acutastore-brand-item {
+      width: 160px !important;
+      height: 80px !important;
+    }
+  }
+{%- endstyle -%}
+
+<div class="acutastore-brand-section">
+  <div class="page-width">
+    {%- if section.settings.title != blank -%}
+      <h2 class="acutastore-brand-title h1">{{ section.settings.title }}</h2>
+    {%- endif -%}
+  </div>
+
+  <div class="acutastore-brand-container">
+    <div class="acutastore-brand-slider">
+      {%- assign brands = "brand-acutas.png,brand-autofrill.png,brand-awejoy.jpg,brand-balixo.png,brand-daluci.png,brand-etuzi.png,brand-keycase.png,brand-masti.png,brand-suake.jpg,brand-techvor.png" | split: ',' -%}
+      
+      {%comment%} First set of brands {%endcomment%}
+      {%- for brand in brands -%}
+        <div class="acutastore-brand-item">
+          <img src="{{ brand | asset_url }}" alt="Brand Logo" loading="lazy" width="150" height="75">
+        </div>
+      {%- endfor -%}
+      
+      {%comment%} Duplicated set for seamless marquee (TranslateX -50% covers exactly half) {%endcomment%}
+      {%- for brand in brands -%}
+        <div class="acutastore-brand-item">
+          <img src="{{ brand | asset_url }}" alt="Brand Logo" loading="lazy" width="150" height="75">
+        </div>
+      {%- endfor -%}
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Brand Grid",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Heading",
+      "default": "Most Loved Brands"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding Top",
+      "default": 36
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding Bottom",
+      "default": 36
+    }
+  ],
+  "presets": [
+    {
+      "name": "Brand Grid"
+    }
+  ]
+}
+{% endschema %}

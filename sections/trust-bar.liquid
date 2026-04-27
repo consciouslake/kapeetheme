@@ -1,0 +1,154 @@
+{%- style -%}
+  .trust-bar-section {
+    padding: 25px 0;
+    background: {{ section.settings.bg_color }};
+    border-bottom: 1px solid #f0f0f0;
+  }
+
+  .trust-bar-container {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    max-width: var(--page-width);
+    margin: 0 auto;
+    padding: 0 20px;
+    gap: 30px;
+  }
+
+  .trust-item {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    flex: 1;
+    justify-content: center;
+  }
+
+  .trust-icon {
+    width: 44px;
+    height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #f9f9f9;
+    border-radius: 50%;
+    color: var(--color-primary);
+  }
+
+  .trust-icon svg {
+    width: 24px;
+    height: 24px;
+  }
+
+  .trust-text-wrapper {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .trust-title {
+    font-size: 14px;
+    font-weight: 700;
+    color: #333;
+    text-transform: uppercase;
+    margin: 0;
+  }
+
+  .trust-subtitle {
+    font-size: 12px;
+    color: #666;
+    margin: 0;
+  }
+
+  @media screen and (max-width: 749px) {
+    .trust-bar-container {
+      flex-direction: column;
+      gap: 20px;
+      align-items: flex-start;
+    }
+    .trust-item {
+      justify-content: flex-start;
+      width: 100%;
+    }
+  }
+{%- endstyle -%}
+
+<div class="trust-bar-section">
+  <div class="trust-bar-container">
+    {%- for block in section.blocks -%}
+      <div class="trust-item">
+        <div class="trust-icon">
+          {%- if block.settings.custom_icon != blank -%}
+             <img src="{{ block.settings.custom_icon | image_url: width: 50 }}" alt="" width="24" height="24">
+          {%- else -%}
+            {{ block.settings.icon | inline_asset_content }}
+          {%- endif -%}
+        </div>
+        <div class="trust-text-wrapper">
+          <h4 class="trust-title">{{ block.settings.title }}</h4>
+          <p class="trust-subtitle">{{ block.settings.subtitle }}</p>
+        </div>
+      </div>
+    {%- endfor -%}
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Trust Bar",
+  "max_blocks": 4,
+  "settings": [
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Background Color",
+      "default": "#ffffff"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "trust_item",
+      "name": "Trust Item",
+      "settings": [
+        {
+          "type": "select",
+          "id": "icon",
+          "label": "Icon",
+          "options": [
+            { "value": "icon-truck.svg", "label": "Shipping" },
+            { "value": "icon-return.svg", "label": "Returns" },
+            { "value": "icon-check-mark.svg", "label": "Quality" },
+            { "value": "icon-chat-bubble.svg", "label": "Support" }
+          ],
+          "default": "icon-truck.svg"
+        },
+        {
+          "type": "image_picker",
+          "id": "custom_icon",
+          "label": "Custom Icon (Optional)"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "Free Shipping"
+        },
+        {
+          "type": "text",
+          "id": "subtitle",
+          "label": "Subtitle",
+          "default": "On all orders above ₹999"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Trust Bar",
+      "blocks": [
+        { "type": "trust_item", "settings": { "title": "Free Shipping", "icon": "icon-truck.svg" } },
+        { "type": "trust_item", "settings": { "title": "Secure Payment", "icon": "icon-check-mark.svg" } },
+        { "type": "trust_item", "settings": { "title": "24/7 Support", "icon": "icon-chat-bubble.svg" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

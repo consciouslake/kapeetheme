@@ -1,0 +1,38 @@
+{%- style -%}
+  .image-asset-banner {
+    width: 100%;
+    margin: 20px 0;
+  }
+  .image-asset-banner img {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+{%- endstyle -%}
+
+<div class="image-asset-banner page-width">
+  {%- if section.settings.asset_name != blank -%}
+    <img src="{{ section.settings.asset_name | asset_url }}" alt="{{ section.settings.asset_name }}" loading="lazy">
+  {%- endif -%}
+</div>
+
+{% schema %}
+{
+  "name": "Image Asset Banner",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "asset_name",
+      "label": "Asset Filename (e.g. banner.jpg)",
+      "default": "why-choose-us.png"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Image Asset Banner"
+    }
+  ]
+}
+{% endschema %}

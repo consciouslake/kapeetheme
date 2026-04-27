@@ -1,0 +1,29 @@
+# Non-theme files — keep these out of the Shopify theme repo
+product_images/
+homepage_assets/
+
+# Python scripts (keep separately, not part of theme)
+*.py
+
+# Data migration files
+*.csv
+push_errors.json
+push_log.txt
+theme_check_errors.txt
+unique_image_urls.txt
+url_redirects.csv
+shopify_redirects.csv
+shopify_customers_migration.csv
+shopify_products_migration*.csv
+product_template.csv
+
+# HTML content files
+about_us_content.html
+refund_returns_content.html
+
+# AI/task tracking files
+task.md
+
+# OS files
+.DS_Store
+Thumbs.db

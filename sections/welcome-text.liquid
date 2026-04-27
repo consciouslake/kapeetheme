@@ -1,0 +1,111 @@
+{%- style -%}
+  .welcome-section {
+    padding-top: {{ section.settings.padding_top }}px;
+    padding-bottom: {{ section.settings.padding_bottom }}px;
+    background-color: {{ section.settings.bg_color }};
+    text-align: center;
+  }
+  .welcome-section .welcome-container {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 20px;
+  }
+  .welcome-section h2 {
+    font-size: 26px;
+    font-weight: 600;
+    margin-bottom: 25px;
+    color: #333;
+    font-family: 'Lato', sans-serif;
+  }
+  .welcome-section .welcome-text {
+    font-size: 14px;
+    line-height: 1.6;
+    color: #555;
+    margin-bottom: 25px;
+    font-family: 'Lato', sans-serif;
+  }
+  .welcome-section .extra-text {
+    font-size: 18px;
+    font-weight: 600;
+    color: #333;
+    margin-top: 25px;
+    font-family: 'Lato', sans-serif;
+  }
+{%- endstyle -%}
+
+<section class="welcome-section">
+  <div class="welcome-container">
+    {%- if section.settings.title != blank -%}
+      <h2 class="h2">{{ section.settings.title }}</h2>
+    {%- endif -%}
+    
+    <div class="welcome-text">
+      {{ section.settings.text }}
+    </div>
+
+    {%- if section.settings.extra_text != blank -%}
+      <div class="extra-text">
+        {{ section.settings.extra_text }}
+      </div>
+    {%- endif -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Welcome Text",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Heading",
+      "default": "Welcome to Acutastore.in"
+    },
+    {
+      "type": "richtext",
+      "id": "text",
+      "label": "Content",
+      "default": "<p>Acutastore is your ultimate destination for quality and satisfaction. Founded in 2012 by Mr. Dheerubhai Vagh, we have established a remarkable track record of excellence. At Acutastore.in, we prioritize safety, quality, and innovation to make your shopping experience easy and joyful. Join our thriving community of satisfied customers and discover a world of excellence at Acutastore.in.</p>"
+    },
+    {
+      "type": "text",
+      "id": "extra_text",
+      "label": "Extra Social Proof",
+      "default": "We take pride in serving over a 2 million+ orders and ensuring the happiness of our valued customers."
+    },
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Background Color",
+      "default": "#f8fbff"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding Top",
+      "default": 60
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding Bottom",
+      "default": 60
+    }
+  ],
+  "presets": [
+    {
+      "name": "Welcome Text"
+    }
+  ]
+}
+{% endschema %}

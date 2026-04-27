@@ -1,0 +1,261 @@
+{%- style -%}
+  .best-selling-section {
+    padding: 0 !important;
+    max-width: var(--page-width);
+    margin: 80px auto !important;
+    padding-left: 20px !important;
+    padding-right: 20px !important;
+    border-top: 2px solid #2874f0;
+    padding-top: 40px !important;
+  }
+
+  .best-selling-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+  }
+
+  .best-selling-title {
+    font-size: 24px;
+    font-weight: 700;
+    color: #333;
+    margin: 0;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  .best-selling-view-all {
+    font-size: 13px;
+    font-weight: 700;
+    color: #2874f0;
+    text-decoration: none;
+    text-transform: uppercase;
+    border-bottom: 1px solid #2874f0;
+  }
+
+  .best-selling-slider-wrapper {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .best-selling-grid {
+    display: flex;
+    gap: 15px;
+    overflow-x: auto;
+    scroll-behavior: smooth;
+    scroll-snap-type: x mandatory;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+    padding-bottom: 10px;
+  }
+
+  .best-selling-grid::-webkit-scrollbar {
+    display: none;
+  }
+
+  .best-selling-card {
+    width: calc(25% - 11.25px);
+    min-width: calc(25% - 11.25px);
+    flex: 0 0 auto;
+    scroll-snap-align: start;
+    text-align: left;
+    position: relative;
+  }
+
+  .best-selling-slider-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 40px;
+    height: 60px;
+    background: #fff;
+    border: 1px solid #ddd;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    z-index: 5;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  }
+
+  .best-selling-slider-btn--prev { left: 0px; }
+  .best-selling-slider-btn--next { right: 0px; }
+  
+  .best-selling-slider-btn svg { width: 20px; height: 20px; fill: #2874f0; }
+
+  @media screen and (max-width: 768px) {
+    .best-selling-card { flex: 0 0 calc(50% - 10px); }
+    .best-selling-slider-btn { display: none; }
+  }
+
+  @media screen and (max-width: 500px) {
+    .best-selling-card { flex: 0 0 calc(80% - 10px); }
+  }
+
+  /* High-Fidelity Card Styling */
+  .best-selling-card .card-wrapper {
+    border: none !important;
+    box-shadow: none !important;
+    background: none !important;
+  }
+
+  .best-selling-card .card__inner {
+    height: 220px !important;
+    padding-bottom: 0 !important;
+    background: #fff !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    overflow: hidden;
+    border-radius: 4px;
+    margin-bottom: 10px;
+    position: relative;
+  }
+
+  .best-selling-card .card__inner img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    display: block;
+    background: #fff;
+  }
+
+  .best-selling-card .card__heading {
+    font-size: 14px !important;
+    font-weight: 500 !important;
+    margin: 12px 0 6px 0 !important;
+    height: 3.2em;
+    overflow: hidden;
+    color: #212121 !important;
+    line-height: 1.4 !important;
+  }
+
+  .best-selling-card .mini-price-row {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-top: 4px;
+  }
+
+  .best-selling-card .mini-price-current {
+    font-weight: 700;
+    color: #212121;
+    font-size: 16px;
+  }
+
+  .best-selling-card .mini-price-old {
+    text-decoration: line-through;
+    color: #878787;
+    font-size: 13px;
+  }
+
+  .best-selling-card .mini-price-discount {
+    color: #388e3c;
+    font-weight: 700;
+    font-size: 13px;
+    white-space: nowrap;
+  }
+{%- endstyle -%}
+
+<div class="best-selling-section" id="BestSelling-{{ section.id }}">
+  <div class="best-selling-header">
+    <h2 class="best-selling-title">{{ section.settings.title }}</h2>
+    <a href="{{ section.settings.collection.url }}" class="best-selling-view-all">View All</a>
+  </div>
+
+  <div class="best-selling-slider-wrapper">
+    <button class="best-selling-slider-btn best-selling-slider-btn--prev" aria-label="Previous">
+      <svg viewBox="0 0 24 24"><path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"/></svg>
+    </button>
+    
+    <div class="best-selling-grid">
+      {%- if section.settings.collection != blank -%}
+        {%- for product in section.settings.collection.products limit: 15 -%}
+          <div class="best-selling-card">
+            <a href="{{ product.url }}" class="full-unstyled-link">
+              <div class="card__inner">
+                <img src="{{ product.featured_media | image_url: width: 400 }}" alt="{{ product.title }}" loading="lazy">
+              </div>
+              <h3 class="card__heading">{{ product.title | truncate: 45 }}</h3>
+              <div class="mini-rating-badge">4.2 ★</div>
+              <div class="mini-price-row">
+                <span class="mini-price-current">{{ product.price | money }}</span>
+                {%- if product.compare_at_price > product.price -%}
+                  <span class="mini-price-old">{{ product.compare_at_price | money }}</span>
+                  <span class="mini-price-discount">{{ product.compare_at_price | minus: product.price | times: 100 | divided_by: product.compare_at_price }}% OFF</span>
+                {%- endif -%}
+              </div>
+            </a>
+          </div>
+        {%- endfor -%}
+      {%- else -%}
+        {%- for i in (1..10) -%}
+           <div class="best-selling-card">
+              <div style="background: #f2f2f2; height: 200px; display: flex; align-items: center; justify-content: center;">
+                {{ 'product-' | append: i | placeholder_svg_tag: 'placeholder-svg' }}
+              </div>
+              <h3 class="card__heading">Best Seller Product</h3>
+              <div class="mini-rating-badge">4.5 ★</div>
+              <div class="mini-price-row">
+                <span class="mini-price-current">₹499.00</span>
+                <span class="mini-price-old">₹999.00</span>
+                <span class="mini-price-discount">50% OFF</span>
+              </div>
+           </div>
+        {%- endfor -%}
+      {%- endif -%}
+    </div>
+
+    <button class="best-selling-slider-btn best-selling-slider-btn--next" aria-label="Next">
+      <svg viewBox="0 0 24 24"><path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/></svg>
+    </button>
+  </div>
+</div>
+
+<script>
+  (function() {
+    function initBestSellingSlider() {
+      const container = document.querySelector('#BestSelling-{{ section.id }}');
+      if (!container) return;
+      const grid = container.querySelector('.best-selling-grid');
+      const nextBtn = container.querySelector('.best-selling-slider-btn--next');
+      const prevBtn = container.querySelector('.best-selling-slider-btn--prev');
+
+      if (nextBtn && prevBtn && grid) {
+        nextBtn.addEventListener('click', () => {
+          grid.scrollBy({ left: grid.clientWidth / 2, behavior: 'smooth' });
+        });
+        prevBtn.addEventListener('click', () => {
+          grid.scrollBy({ left: -grid.clientWidth / 2, behavior: 'smooth' });
+        });
+      }
+    }
+    initBestSellingSlider();
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "Best Selling Products",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Section Title",
+      "default": "Best Selling Products"
+    },
+    {
+      "type": "collection",
+      "id": "collection",
+      "label": "Collection"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Best Selling Products"
+    }
+  ]
+}
+{% endschema %}
