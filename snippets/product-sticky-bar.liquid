@@ -8,13 +8,19 @@
           <span class="price">{{ product.selected_or_first_available_variant.price | money }}</span>
         </div>
       </div>
-      <div class="sticky-actions">
+      <div class="sticky-actions" style="display: flex; gap: 10px;">
         <div class="sticky-qty small-hide">
            {% comment %} Reuse quantity input style here if needed {% endcomment %}
         </div>
-        <button type="submit" class="button button--primary" onclick="document.querySelector('#product-form-{{ section.id }} [name=add]').click();">
-          Add to Cart
-        </button>
+        {%- if product.available -%}
+          <button type="submit" form="{{ product_form_id }}" class="button" style="border:1px solid #01568D; box-shadow:none; flex: 1;">
+            Add to Cart
+          </button>
+        {%- else -%}
+          <button type="button" class="button" disabled style="background:#fce4c4; color:#fff; border:1px solid #ddd; box-shadow:none; flex: 1;">
+            Sold Out
+          </button>
+        {%- endif -%}
       </div>
     </div>
   </div>
