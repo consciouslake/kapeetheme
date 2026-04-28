@@ -173,14 +173,7 @@
                   {% endif %}
                 </div>
 
-                {% comment %} 3. BRAND LOGO {% endcomment %}
-                <div class="product__brand-logo">
-                  {% if product.vendor != blank %}
-                    <div class="brand-box">
-                      <span class="brand-text">{{ product.vendor }}</span>
-                    </div>
-                  {% endif %}
-                </div>
+                {% comment %} 3. BRAND LOGO - hidden, vendor name shown inline in title area {% endcomment %}
 
                 {% comment %} 4. HIGHLIGHTS {% endcomment %}
                 <div class="product__highlights">
@@ -585,17 +578,37 @@
                   show_pickup_availability: true
                 -%}
 
-                {% comment %} 5. WISHLIST & COMPARE {% endcomment %}
-                <div class="product__wishlist-compare">
-                  <span class="wishlist-btn">{% render 'icon-heart' %} Add to wishlist</span>
-                  <span class="compare-btn">{% render 'icon-exchange' %} Compare</span>
+                {% comment %} 5. SHARE & PRODUCT NAV {% endcomment %}
+                <div class="product__share-nav">
+                  {%- assign share_url = product.selected_variant.url | default: product.url | prepend: request.origin -%}
+                  <button
+                    class="product__share-nav-btn"
+                    onclick="if(navigator.share){navigator.share({title:'{{ product.title | escape }}',url:'{{ share_url }}'})}else{navigator.clipboard.writeText('{{ share_url }}').then(function(){var b=this;b.textContent='Link Copied!';setTimeout(function(){b.textContent='Share'},2000)}.bind(this))}"
+                    title="Share this product"
+                    type="button"
+                  >
+                    {% render 'icon-share' %} Share
+                  </button>
+                  {%- if collection.previous_product or collection.next_product -%}
+                    <div class="product__nav-links">
+                      {%- if collection.previous_product -%}
+                        <a href="{{ collection.previous_product }}" class="product__share-nav-btn" title="Previous product">
+                          &#8592; Prev
+                        </a>
+                      {%- endif -%}
+                      {%- if collection.next_product -%}
+                        <a href="{{ collection.next_product }}" class="product__share-nav-btn" title="Next product">
+                          Next &#8594;
+                        </a>
+                      {%- endif -%}
+                    </div>
+                  {%- endif -%}
                 </div>
 
                 {% comment %} 6. META INFO {% endcomment %}
                 <div class="product__meta-info">
                   <p><strong>SKU:</strong> {{ product.selected_or_first_available_variant.sku | default: 'N/A' }}</p>
                   <p><strong>Category:</strong> {{ product.collections.first.title | default: 'N/A' }}</p>
-                  <p><strong>Brand:</strong> {{ product.vendor | default: 'Acutastore' }}</p>
                 </div>
               {%- when 'rating' -%}
                 {%- if product.metafields.reviews.rating.value != blank -%}
