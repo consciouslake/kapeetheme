@@ -6,11 +6,11 @@
     - [x] Match "Browse Category" ribbon height and font exactly
     - [ ] Add Blue Top Bar ("WELCOME TO OUR STORE!")
     - [ ] Match EXACT category list (Electronics, etc.)
-    - [/] **Layout Polish**
-        - [ ] Add Blue Search Button 1:1
-        - [ ] Fix Redundant "Welcome" text in Top Bar
-        - [ ] Align Account/Cart icons horizontally
-        - [ ] Force Menu into a single row
+- [/] **Layout Polish**
+    - [ ] Add Blue Search Button 1:1
+    - [ ] Fix Redundant "Welcome" text in Top Bar
+    - [ ] Align Account/Cart icons horizontally
+    - [ ] Force Menu into a single row
 - [ ] **Hero Section (Slideshow)**
     - [ ] Configure `slideshow.liquid` with 6 original banners
     - [ ] Set transition timings and mobile responsiveness
@@ -23,5 +23,11 @@
 - [ ] **Footer Completion**
     - [ ] Add "Why Choose Us" trust banner
     - [ ] Add original payment icon assets
+- [x] **Backend & Data Audit**
+    - [x] Audit Payment Gateways (Cashfree, COD, PhonePe)
+    - [x] Audit Shipping Zones & Methods (Free Shipping India)
+    - [x] Audit Tax Settings (Inclusive, GST Classes)
+    - [x] Confirm URL Permalinks (/product/ base)
 - [/] **Final Sync**
     - [ ] Push all changes to the "Kapee Replicated" theme using CLI
+    - [ ] Setup URL redirects for WooCommerce -> Shopify
